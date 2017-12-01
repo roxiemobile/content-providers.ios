@@ -1,0 +1,49 @@
+PODS:
+  - CryptoSwift (0.8.0)
+  - Dispatch (2.0.4)
+  - SQLCipher (3.4.1):
+    - SQLCipher/standard (= 3.4.1)
+  - SQLCipher/common (3.4.1)
+  - SQLCipher/standard (3.4.1):
+    - SQLCipher/common
+  - SQLite.swift/SQLCipher (0.11.4):
+    - SQLCipher (>= 3.4.0)
+  - SwiftCommons/Concurrent (1.1.0):
+    - SwiftCommonsConcurrent (= 1.1.0)
+  - SwiftCommons/Extensions (1.1.0):
+    - SwiftCommonsExtensions (= 1.1.0)
+  - SwiftCommonsAbstractions (1.1.0)
+  - SwiftCommonsConcurrent (1.1.0):
+    - Dispatch (~> 2.0.4)
+    - SwiftCommonsObjC (= 1.1.0)
+  - SwiftCommonsExtensions (1.1.0):
+    - SwiftCommonsAbstractions (= 1.1.0)
+    - SwiftCommonsLogging (= 1.1.0)
+  - SwiftCommonsLang (1.1.0)
+  - SwiftCommonsLogging (1.1.0):
+    - SwiftCommonsConcurrent (= 1.1.0)
+    - SwiftCommonsLang (= 1.1.0)
+  - SwiftCommonsObjC (1.1.0)
+
+DEPENDENCIES:
+  - CryptoSwift (~> 0.8.0)
+  - SQLite.swift/SQLCipher (~> 0.11.4)
+  - SwiftCommons/Concurrent (~> 1.1.0)
+  - SwiftCommons/Extensions (~> 1.1.0)
+
+SPEC CHECKSUMS:
+  CryptoSwift: f81907430ebbe38b8404b4f6fb40f3c576a8755f
+  Dispatch: 7ed89f2845001c4161ad83f43988b584fae8fff4
+  SQLCipher: 43d12c0eb9c57fb438749618fc3ce0065509a559
+  SQLite.swift: 3e3bee21da701b5b9f87c4a672cb54f233505692
+  SwiftCommons: f8747043bfe4287bb7916fb23279a82674a29021
+  SwiftCommonsAbstractions: 3eff30086dd8dcaf9768fc7487f72496b86d2187
+  SwiftCommonsConcurrent: 0d430aed762d4c7741450cf2a5ff9b4b45f97db7
+  SwiftCommonsExtensions: 558bdf4fc00ea7b3a48c33b102642f2e6f21b1b3
+  SwiftCommonsLang: e1fe86c0a4c73596aface6af1b88fbf188171a0d
+  SwiftCommonsLogging: 82ef131b56273702d2b4083931a829db0c3d476b
+  SwiftCommonsObjC: 9ce27218606b397036a873e196f9bb489aa515dd
+
+PODFILE CHECKSUM: c99cdf1211fdffb48c129a896935345f1fb6e965
+
+COCOAPODS: 1.4.0.beta.2
