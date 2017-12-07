@@ -24,12 +24,6 @@ Pod::Spec.new do |s|
     tag: s.version.to_s
   }
 
-  # s.default_subspecs = 'FileSystem',
-  #                      'SQLite',
-  #                      'UserDefaults'
-
-  s.default_subspecs = 'SQLite'
-
 # MARK: - Modules
 
   # # A content provider used for accessing and modifying physical files.
