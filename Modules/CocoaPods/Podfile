@@ -1,18 +1,22 @@
-# source 'https://github.com/roxiemobile/shared-cocoa-frameworks.ios.git'
-# source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/roxiemobile/static-cocoa-frameworks.ios.git'
 
-platform :ios, '8.0'
+platform :ios, '9.0'
 use_frameworks!
 
 workspace '../RoxieMobile.ContentProviders/ContentProviders.xcworkspace'
+
+def pod_from(name, *args)
+  name = name.split('/').tap { |arr| arr[0] = "#{arr[0]}-SCF" }.reject(&:empty?).join('/')
+  pod(name, *args)
+end
 
 
 target 'ContentProviders.SQLite' do
   project '../RoxieMobile.ContentProviders/Sources/SQLite/ContentProviders.SQLite.xcodeproj'
 
   # Dependencies
-  pod 'CryptoSwift', '~> 0.8.0'
-  pod 'SwiftCommons/Concurrent', '~> 1.1.0'
-  pod 'SwiftCommons/Extensions', '~> 1.1.0'
-  pod 'SQLite.swift/SQLCipher', '~> 0.11.4'
+  pod_from 'CryptoSwift', '~> 0.8.3'
+  pod_from 'SwiftCommons/Concurrent', '~> 1.2.5'
+  pod_from 'SwiftCommons/Extensions', '~> 1.2.5'
+  pod_from 'SQLite.swift/SQLCipher', '~> 0.11.4'
 end
