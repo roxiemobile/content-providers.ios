@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
 
   s.platform              = :ios
   s.ios.deployment_target = '9.0'
-  s.swift_version         = '4.0'
+  s.swift_version         = '4.2'
 
   s.cocoapods_version     = '>= 1.4.0'
   s.static_framework      = true
@@ -39,8 +39,8 @@ Pod::Spec.new do |s|
 
 # MARK: - Dependencies
 
-  s.dependency 'CryptoSwift', '~> 0.8.3'
-  s.dependency 'SwiftCommons/Concurrent', '~> 1.2.6'
-  s.dependency 'SwiftCommons/Extensions', '~> 1.2.6'
-  s.dependency 'SQLite.swift/SQLCipher', '~> 0.11.4'
+  s.dependency 'CryptoSwift', '~> 0.12.0'
+  s.dependency 'SwiftCommons/Concurrent', '~> 1.3.0'
+  s.dependency 'SwiftCommons/Extensions', '~> 1.3.0'
+  s.dependency 'SQLite.swift/SQLCipher', '~> 0.11.5'
 end
