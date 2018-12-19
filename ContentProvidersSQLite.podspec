@@ -39,8 +39,11 @@ Pod::Spec.new do |s|
 
 # MARK: - Dependencies
 
-  s.dependency 'CryptoSwift', '~> 0.12.0'
-  s.dependency 'SwiftCommons/Concurrent', '~> 1.3.0'
-  s.dependency 'SwiftCommons/Extensions', '~> 1.3.0'
+  s.dependency 'CryptoSwift', '~> 0.13.1'
+  s.dependency 'SwiftCommons/Concurrent', '~> 1.3.1'
+  s.dependency 'SwiftCommons/Extensions', '~> 1.3.1'
   s.dependency 'SQLite.swift/SQLCipher', '~> 0.11.5'
+
+  # NOTE: Temporal bug fix of integration “SQLite.swift” with “SQLCipher”.
+  s.dependency 'SQLCipher', '~> 3.4.2', '< 4.0.0'
 end
