@@ -6,7 +6,7 @@ use_frameworks!
 workspace '../RoxieMobile.ContentProviders/ContentProviders.xcworkspace'
 
 def pod_from(name, *args)
-  name = name.split('/').tap { |arr| arr[0] = "#{arr[0]}-SCF42" }.reject(&:empty?).join('/')
+  name = name.split('/').tap { |arr| arr[0] = "#{arr[0]}-SCF53" }.reject(&:empty?).join('/')
   pod(name, *args)
 end
 
@@ -15,8 +15,8 @@ target 'ContentProviders.SQLite' do
   project '../RoxieMobile.ContentProviders/Sources/SQLite/ContentProviders.SQLite.xcodeproj'
 
   # Dependencies
-  pod_from 'CryptoSwift', '~> 0.13.1'
-  pod_from 'SwiftCommons/Concurrent', '~> 1.4.0'
-  pod_from 'SwiftCommons/Extensions', '~> 1.4.0'
-  pod_from 'SQLite.swift/SQLCipher', '~> 0.11.5'
+  pod_from 'CryptoSwift', '~> 1.3.2'
+  pod_from 'SwiftCommons/Concurrent', '~> 1.5.0'
+  pod_from 'SwiftCommons/Extensions', '~> 1.5.0'
+  pod_from 'SQLite.swift/SQLCipher', '~> 0.12.2'
 end
