@@ -27,7 +27,7 @@ public extension Connection
      * @return  TRUE if everything succeeds, FALSE on failure.
      */
     @available(*, deprecated)
-    public final var goodConnection: Bool
+    final var goodConnection: Bool
     {
         // FMDb/FMDatabase.m
         // @link https://github.com/ccgus/fmdb/blob/master/src/fmdb/FMDatabase.m#L426

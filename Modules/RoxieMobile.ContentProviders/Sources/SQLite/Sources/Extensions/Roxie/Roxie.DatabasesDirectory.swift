@@ -20,7 +20,7 @@ public extension Roxie
 // MARK: - Properties
 
     /// Returns the databases directory for the current user.
-    public static var databasesDirectory: URL? {
+    static var databasesDirectory: URL? {
         return Directories.Databases
     }
 
