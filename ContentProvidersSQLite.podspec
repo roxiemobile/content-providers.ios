@@ -9,9 +9,9 @@ Pod::Spec.new do |s|
 
   s.platform              = :ios
   s.ios.deployment_target = '9.0'
-  s.swift_version         = '4.2'
+  s.swift_version         = '5.3'
 
-  s.cocoapods_version     = '~> 1.5.3'
+  s.cocoapods_version     = '~> 1.10.0'
   s.static_framework      = true
 
   s.homepage              = 'https://github.com/roxiemobile/content-providers.ios'
@@ -39,11 +39,8 @@ Pod::Spec.new do |s|
 
 # MARK: - Dependencies
 
-  s.dependency 'CryptoSwift', '~> 0.13.1'
-  s.dependency 'SwiftCommons/Concurrent', '~> 1.4.1'
-  s.dependency 'SwiftCommons/Extensions', '~> 1.4.1'
-  s.dependency 'SQLite.swift/SQLCipher', '~> 0.11.5', '< 0.11.6'
-
-  # NOTE: Temporal bug fix of integration “SQLite.swift” with “SQLCipher”.
-  s.dependency 'SQLCipher', '>= 3.4.2', '< 4.0.0'
+  s.dependency 'CryptoSwift', '~> 1.3.2'
+  s.dependency 'SwiftCommons/Concurrent', '~> 1.5.0'
+  s.dependency 'SwiftCommons/Extensions', '~> 1.5.0'
+  s.dependency 'SQLite.swift/SQLCipher', '~> 0.12.2'
 end
