@@ -9,16 +9,16 @@
 // ----------------------------------------------------------------------------
 
 import SQLCipher
-import SQLite
+import GRDB
 
 // ----------------------------------------------------------------------------
 
-public extension Connection
+public extension DatabaseQueue
 {
 // MARK: - Properties
 
     /**
-     * Test to see if we have a good connection to the database.
+     * Checks whether a database is readable.
      *
      * This will confirm whether:
      * - is database open
@@ -26,32 +26,15 @@ public extension Connection
      *
      * @return  TRUE if everything succeeds, FALSE on failure.
      */
-    @available(*, deprecated)
-    final var goodConnection: Bool
+    final var isReadable: Bool
     {
         // FMDb/FMDatabase.m
-        // @link https://github.com/ccgus/fmdb/blob/master/src/fmdb/FMDatabase.m#L426
+        // @link https://github.com/ccgus/fmdb/blob/v2.7/src/fmdb/FMDatabase.m#L467
 
-        var stmt: OpaquePointer? = nil
-        var result: Int32?
-
-        // Using SQLite in C programs
-        // @link http://www.wassen.net/sqlite-c.html
-
-        if sqlite3_prepare_v2(self.handle, SQL.CheckConnection, -1, &stmt, nil) == SQLITE_OK {
-            result = sqlite3_step(stmt)
-        }
-
-        sqlite3_finalize(stmt)
-
-        // Done
-        return (result == SQLITE_OK || result == SQLITE_ROW || result == SQLITE_DONE)
-    }
-
-// MARK: - Constants
-
-    private struct SQL {
-        static let CheckConnection = "SELECT `name` FROM `sqlite_master` WHERE `type` = 'table';"
+        let rowCount = self.read({ db -> Int in
+            (try? Int.fetchOne(db, sql: "SELECT COUNT(*) FROM `sqlite_master` WHERE `type` = 'table';")) ?? 0
+        })
+        return rowCount > 0
     }
 }
 
