@@ -5,6 +5,10 @@ PODS:
   - Dispatch-SCF53 (2.0.4):
     - Dispatch-SCF53/StaticCocoaFramework (= 2.0.4)
   - Dispatch-SCF53/StaticCocoaFramework (2.0.4)
+  - GRDB.swift-SCF53/SQLCipher (4.14.0):
+    - GRDB.swift-SCF53/StaticCocoaFramework (= 4.14.0)
+  - GRDB.swift-SCF53/StaticCocoaFramework (4.14.0):
+    - SQLCipher-SCF53 (>= 3.4.0)
   - SQLCipher-SCF53 (4.4.0):
     - SQLCipher-SCF53/standard (= 4.4.0)
   - SQLCipher-SCF53/common (4.4.0):
@@ -12,10 +16,6 @@ PODS:
   - SQLCipher-SCF53/standard (4.4.0):
     - SQLCipher-SCF53/common
   - SQLCipher-SCF53/StaticCocoaFramework (4.4.0)
-  - SQLite.swift-SCF53/SQLCipher (0.12.2):
-    - SQLite.swift-SCF53/StaticCocoaFramework (= 0.12.2)
-  - SQLite.swift-SCF53/StaticCocoaFramework (0.12.2):
-    - SQLCipher-SCF53 (>= 3.4.2)
   - SwiftCommons-SCF53/Concurrent (1.5.0):
     - SwiftCommonsConcurrent-SCF53 (= 1.5.0)
   - SwiftCommons-SCF53/Extensions (1.5.0):
@@ -47,7 +47,7 @@ PODS:
 
 DEPENDENCIES:
   - CryptoSwift-SCF53 (~> 1.3.2)
-  - SQLite.swift-SCF53/SQLCipher (~> 0.12.2)
+  - GRDB.swift-SCF53/SQLCipher (~> 4.14.0)
   - SwiftCommons-SCF53/Concurrent (~> 1.5.0)
   - SwiftCommons-SCF53/Extensions (~> 1.5.0)
 
@@ -55,8 +55,8 @@ SPEC REPOS:
   https://github.com/roxiemobile/static-cocoa-frameworks.ios.git:
     - CryptoSwift-SCF53
     - Dispatch-SCF53
+    - GRDB.swift-SCF53
     - SQLCipher-SCF53
-    - SQLite.swift-SCF53
     - SwiftCommons-SCF53
     - SwiftCommonsAbstractions-SCF53
     - SwiftCommonsConcurrent-SCF53
@@ -68,8 +68,8 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   CryptoSwift-SCF53: 381130a78a83b60dbcfa2cb576993eec051bcd12
   Dispatch-SCF53: 40f13b882a78c8e567d3e581221f086537a5c172
+  GRDB.swift-SCF53: 8ae4942d8b53393524d1a42d85f41075e8ddcf5d
   SQLCipher-SCF53: 1c0932a1e71f3fb724ebe46b19fb19d933eba472
-  SQLite.swift-SCF53: 54fb692abccb5d8b8c5f6f9c4ba0cc84a23edc29
   SwiftCommons-SCF53: eab0998892d05432be930696797e9c12f354770d
   SwiftCommonsAbstractions-SCF53: 94857ff1b6927b7c9fc4c23ed8e77c4db3a161cd
   SwiftCommonsConcurrent-SCF53: c61cd16572c75d868821c50bdd40c68cfc17be37
@@ -78,6 +78,6 @@ SPEC CHECKSUMS:
   SwiftCommonsLogging-SCF53: 44cf3d0ed29aeaac6f694a72bbdaf7739178f53d
   SwiftCommonsObjC-SCF53: 25fa8250442ca373913d95f351cf59fe10761cd8
 
-PODFILE CHECKSUM: 915a04b9c4b5f20e36b308afea9e84733cc1d07c
+PODFILE CHECKSUM: 7d42ee09e9117a2d52b3e8b425420379c41f08f9
 
 COCOAPODS: 1.10.0

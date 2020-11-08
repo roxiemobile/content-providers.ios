@@ -40,7 +40,7 @@ Pod::Spec.new do |s|
 # MARK: - Dependencies
 
   s.dependency 'CryptoSwift', '~> 1.3.2'
+  s.dependency 'GRDB.swift/SQLCipher', '~> 4.14.0'
   s.dependency 'SwiftCommons/Concurrent', '~> 1.5.0'
   s.dependency 'SwiftCommons/Extensions', '~> 1.5.0'
-  s.dependency 'SQLite.swift/SQLCipher', '~> 0.12.2'
 end

@@ -9,11 +9,11 @@
 // ----------------------------------------------------------------------------
 
 import Foundation
-import SQLite
+import GRDB
 
 // ----------------------------------------------------------------------------
 
-@available(*, deprecated)
+@available(*, deprecated, message: "\n• Write a description.")
 public protocol DatabaseOpenDelegate
 {
 // MARK: - Methods
@@ -35,7 +35,7 @@ public protocol DatabaseOpenDelegate
      * @param  name      The name of the database.
      * @param  database  The database.
      */
-    func configureDatabase(name: String?, database: Connection)
+    func configureDatabase(name: String?, dbQueue: DatabaseQueue)
 
     /**
      * Called when the database is created for the first time.
@@ -43,7 +43,7 @@ public protocol DatabaseOpenDelegate
      * @param  name      The name of the database.
      * @param  database  The database.
      */
-    func databaseDidCreate(name: String?, database: Connection)
+    func databaseDidCreate(name: String?, dbQueue: DatabaseQueue)
 
     /**
      * Called when the database needs to be upgraded.
@@ -53,7 +53,7 @@ public protocol DatabaseOpenDelegate
      * @param  oldVersion  The old database version.
      * @param  newVersion  The new database version.
      */
-    func upgradeDatabase(name: String?, database: Connection, oldVersion: Int, newVersion: Int)
+    func upgradeDatabase(name: String?, dbQueue: DatabaseQueue, oldVersion: Int, newVersion: Int)
 
     /**
      * Called when the database needs to be downgraded.
@@ -63,7 +63,7 @@ public protocol DatabaseOpenDelegate
      * @param  oldVersion  The old database version.
      * @param  newVersion  The new database version.
      */
-    func downgradeDatabase(name: String?, database: Connection, oldVersion: Int, newVersion: Int)
+    func downgradeDatabase(name: String?, dbQueue: DatabaseQueue, oldVersion: Int, newVersion: Int)
 
     /**
      * Called when the database has been opened.
@@ -71,7 +71,7 @@ public protocol DatabaseOpenDelegate
      * @param  name      The name of the database.
      * @param  database  The database.
      */
-    func databaseDidOpen(name: String?, database: Connection)
+    func databaseDidOpen(name: String?, dbQueue: DatabaseQueue)
 
     /**
      * Called when the database has been opened.
