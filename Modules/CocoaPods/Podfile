@@ -1,22 +1,37 @@
 source 'https://github.com/roxiemobile/static-cocoa-frameworks.ios.git'
+source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, '9.0'
 use_frameworks!
 
 workspace '../RoxieMobile.ContentProviders/ContentProviders.xcworkspace'
 
+
+# MARK: - Methods
+
 def pod_from(name, *args)
   name = name.split('/').tap { |arr| arr[0] = "#{arr[0]}-SCF53" }.reject(&:empty?).join('/')
   pod(name, *args)
 end
 
+def inject_shared_dependencies_1
+  pod_from 'CryptoSwift', '~> 1.3.2'
+  pod_from 'GRDB.swift/SQLCipher', '~> 4.14.0'
+  pod_from 'SwiftCommons/Concurrent', '~> 1.5.0'
+  pod_from 'SwiftCommons/Extensions', '~> 1.5.0'
+end
+
+def inject_shared_dependencies_2
+  pod 'SwiftLint', '~> 0.40.3'
+end
+
+
+# MARK: - Sources
 
 target 'ContentProviders.SQLite' do
   project '../RoxieMobile.ContentProviders/Sources/SQLite/ContentProviders.SQLite.xcodeproj'
 
   # Dependencies
-  pod_from 'CryptoSwift', '~> 1.3.2'
-  pod_from 'GRDB.swift/SQLCipher', '~> 4.14.0'
-  pod_from 'SwiftCommons/Concurrent', '~> 1.5.0'
-  pod_from 'SwiftCommons/Extensions', '~> 1.5.0'
+  inject_shared_dependencies_1
+  inject_shared_dependencies_2
 end
