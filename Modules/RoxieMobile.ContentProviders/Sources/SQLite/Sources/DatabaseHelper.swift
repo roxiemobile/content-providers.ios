@@ -178,14 +178,20 @@ public class DatabaseHelper
 
         // Open on-disk OR in-memory database
         if name.isNotBlank {
-            dbQueue = createDatabaseObject(path: name, readonly: readonly)
+            var configuration = Configuration()
+            configuration.readonly = readonly
 
             // Send events to the delegate
             if let delegate = delegate
             {
                 objcTry {
-                    // Configure the open database
-                    delegate.configureDatabase(name: databaseName, dbQueue: dbQueue)
+                    // Configure the database before open
+                    // @link https://github.com/groue/GRDB.swift/blob/master/README.md#creating-or-opening-an-encrypted-database
+                    configuration.prepareDatabase = { db in
+                        delegate.configureDatabase(name: databaseName, database: db)
+                    }
+                    
+                    dbQueue = self.createDatabaseObject(path: name, configuration: configuration)
 
                     // Check database connection
                     if !dbQueue.isReadable {
@@ -200,7 +206,12 @@ public class DatabaseHelper
                         if (oldVersion != newVersion)
                         {
                             if dbQueue.configuration.readonly {
-                                NSException(name: NSExceptionName(rawValue: NSError.DatabaseError.Domain), reason: "Can't migrate read-only database from version \(oldVersion) to \(newVersion).", userInfo: nil).raise()
+                                let exceptionReason =
+                                    "Can't migrate read-only database from version \(oldVersion) to \(newVersion)."
+
+                                NSException(name: NSExceptionName(rawValue: NSError.DatabaseError.Domain),
+                                            reason: exceptionReason,
+                                            userInfo: nil).raise()
                             }
 
                             var blockException: NSException?
@@ -240,7 +251,7 @@ public class DatabaseHelper
                                 blockException = exception
                                 
                                 if result == .rollback {
-                                    throw DatabaseError.FailedTransaction
+                                    throw DatabaseError.failedTransaction
                                 }
 
                                 return result
@@ -257,7 +268,7 @@ public class DatabaseHelper
                 }.objcCatch { ex in
 
                     // Convert NSException to NSError
-                    let error = NSError(code: NSError.DatabaseError.Code.DatabaseIsInvalid, description: ex.reason)
+                    let error = NSError(code: NSError.DatabaseError.Code.databaseIsInvalid, description: ex.reason)
 
                     // Could not open OR migrate database
                     delegate.databaseDidOpenWithError(name: databaseName, error: error)
@@ -265,8 +276,12 @@ public class DatabaseHelper
                 }
             }
             // Check database connection
-            else if !dbQueue.isReadable {
-                dbQueue = nil
+            else {
+                dbQueue = createDatabaseObject(path: name, configuration: configuration)
+                
+                if !dbQueue.isReadable {
+                    dbQueue = nil
+                }
             }
         }
 
@@ -294,7 +309,10 @@ public class DatabaseHelper
                 {
                     let path = tmpPath.path
                     
-                    var dbQueueUnpacked: DatabaseQueue? = createDatabaseObject(path: path, readonly: false)
+                    var configuration = Configuration()
+                    configuration.readonly = false
+                    
+                    var dbQueueUnpacked: DatabaseQueue? = createDatabaseObject(path: path, configuration: configuration)
                     
                     if checkDatabaseIntegrity(dbQueue: dbQueueUnpacked)
                     {
@@ -376,20 +394,17 @@ public class DatabaseHelper
 
     // DEPRECATED: Code refactoring is needed
     @available(*, deprecated, message: "\n• Code refactoring is required.\n• Write a description.")
-    private func createDatabaseObject(path: String?, readonly: Bool) -> DatabaseQueue?
+    private func createDatabaseObject(path: String?, configuration: Configuration) -> DatabaseQueue?
     {
         guard let path = path else {
             Roxie.fatalError("Can't create database object with nil uri path")
         }
 
         do {
-            var configuration = Configuration()
-            configuration.readonly = readonly
-
             return try DatabaseQueue(path: path, configuration: configuration)
         }
         catch {
-            Roxie.fatalError("Can't open db at \(path) with readonly \(readonly)", cause: error)
+            Roxie.fatalError("Can't open db at \(path) with readonly \(configuration.readonly)", cause: error)
         }
     }
 
@@ -422,7 +437,7 @@ public class DatabaseHelper
 // MARK: - Inner Types
 
     enum DatabaseError : Error {
-        case FailedTransaction
+        case failedTransaction
     }
 
 // MARK: - Variables
