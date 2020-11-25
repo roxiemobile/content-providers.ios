@@ -27,6 +27,15 @@ public protocol DatabaseOpenDelegate
      *          or NIL to create the empty database file.
      */
     func databaseWillCreate(name: String?) -> (assetPath: URL?, encryptionKey: Data?)
+    
+    /**
+     * Called when the database will be opened.
+     *
+     * @param name Name of the database.
+     *
+     * @return Database encryption key required for opening database.
+     */
+    func databaseWillOpen(name: String?) -> Data?
 
     /**
      * Called when the database connection is being configured, to enable features
@@ -35,7 +44,7 @@ public protocol DatabaseOpenDelegate
      * @param  name      The name of the database.
      * @param  database  The database.
      */
-    func configureDatabase(name: String?, database: Database)
+    func configureDatabase(name: String?, dbQueue: DatabaseQueue)
 
     /**
      * Called when the database is created for the first time.

@@ -33,7 +33,7 @@ public extension NSError
     class var databaseIsInvalid: NSError
     {
         struct Singleton {
-            static let error = NSError(code: DatabaseError.Code.databaseIsInvalid,
+            static let error = NSError(code: DatabaseError.Code.DatabaseIsInvalid,
                     description: "Database is not valid.")
         }
         return Singleton.error
@@ -42,7 +42,7 @@ public extension NSError
     class var inputIsInvalid: NSError
     {
         struct Singleton {
-            static let error = NSError(code: DatabaseError.Code.inputIsInvalid,
+            static let error = NSError(code: DatabaseError.Code.InputIsInvalid,
                     description: "Input parameter(s) is not valid.")
         }
         return Singleton.error
@@ -51,7 +51,7 @@ public extension NSError
     class var modelIsInvalid: NSError
     {
         struct Singleton {
-            static let error = NSError(code: DatabaseError.Code.modelIsInvalid,
+            static let error = NSError(code: DatabaseError.Code.ModelIsInvalid,
                     description: "Model is not valid. The custom validation for the input data failed.")
         }
         return Singleton.error
@@ -66,9 +66,9 @@ public extension NSError
 
         // Error code
         public enum Code: Int {
-            case databaseIsInvalid = 1
-            case inputIsInvalid = 2
-            case modelIsInvalid = 3
+            case DatabaseIsInvalid = 1
+            case InputIsInvalid = 2
+            case ModelIsInvalid = 3
         }
     }
 
@@ -79,7 +79,7 @@ public extension NSError
 
         // Error code
         public enum Code: Int {
-            case fileNotFound = 1
+            case FileNotFound = 1
         }
     }
 
@@ -90,8 +90,8 @@ public extension NSError
 
         // Error code
         public enum Code: Int {
-            case couldNotDecodeRawData = 1
-            case objectIsInvalid = 2
+            case CouldNotDecodeRawData = 1
+            case ObjectIsInvalid = 2
         }
     }
 
