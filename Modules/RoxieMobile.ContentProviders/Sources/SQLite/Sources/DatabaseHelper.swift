@@ -179,6 +179,7 @@ public class DatabaseHelper
         // Open on-disk OR in-memory database
         if name.isNotBlank {
             var configuration = Configuration()
+
             configuration.readonly = readonly
 
             // Send events to the delegate
@@ -186,15 +187,9 @@ public class DatabaseHelper
             {
                 objcTry {
                     // Configure the database before open
-                    // @link https://github.com/groue/GRDB.swift/blob/master/README.md#creating-or-opening-an-encrypted-database
-                    delegate.configureDatabase(name: databaseName, dbConfig: &configuration)
+                    delegate.configureDatabase(name: databaseName, сonfiguration: &configuration)
 
                     dbQueue = self.createDatabaseObject(path: name, configuration: configuration)
-
-                    // Check database connection
-                    if !dbQueue.isReadable {
-                        NSException(name: NSExceptionName(rawValue: NSError.DatabaseError.Domain), reason: "Database is not readable.", userInfo: nil).raise()
-                    }
 
                     // Migrate database
                     if  let newVersion = version {
@@ -268,13 +263,8 @@ public class DatabaseHelper
                     dbQueue = nil
                 }
             }
-            // Check database connection
             else {
                 dbQueue = createDatabaseObject(path: name, configuration: configuration)
-
-                if !dbQueue.isReadable {
-                    dbQueue = nil
-                }
             }
         }
 
@@ -303,6 +293,7 @@ public class DatabaseHelper
                     let path = tmpPath.path
 
                     var configuration = Configuration()
+
                     configuration.readonly = false
 
                     var dbQueueUnpacked: DatabaseQueue? = createDatabaseObject(path: path, configuration: configuration)
@@ -387,7 +378,7 @@ public class DatabaseHelper
 
     // DEPRECATED: Code refactoring is needed
     @available(*, deprecated, message: "\n• Code refactoring is required.\n• Write a description.")
-    private func createDatabaseObject(path: String?, configuration: Configuration) -> DatabaseQueue?
+    private func createDatabaseObject(path: String?, configuration: Configuration) -> DatabaseQueue
     {
         guard let path = path else {
             Roxie.fatalError("Can't create database object with nil uri path")

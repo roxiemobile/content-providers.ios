@@ -35,7 +35,7 @@ public protocol DatabaseOpenDelegate
      * @param  name      The name of the database.
      * @param  database  The database.
      */
-    func configureDatabase(name: String?, dbConfig: inout Configuration)
+    func configureDatabase(name: String?, сonfiguration: inout Configuration)
 
     /**
      * Called when the database is created for the first time.
