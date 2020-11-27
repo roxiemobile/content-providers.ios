@@ -178,19 +178,18 @@ public class DatabaseHelper
 
         // Open on-disk OR in-memory database
         if name.isNotBlank {
-            dbQueue = createDatabaseObject(path: name, readonly: readonly)
+
+            var configuration = Configuration()
+            configuration.readonly = readonly
 
             // Send events to the delegate
             if let delegate = delegate
             {
                 objcTry {
-                    // Configure the open database
-                    delegate.configureDatabase(name: databaseName, dbQueue: dbQueue)
+                    // Configure the database before open
+                    delegate.configureDatabase(name: databaseName, сonfiguration: &configuration)
 
-                    // Check database connection
-                    if !dbQueue.isReadable {
-                        NSException(name: NSExceptionName(rawValue: NSError.DatabaseError.Domain), reason: "Database is not readable.", userInfo: nil).raise()
-                    }
+                    dbQueue = self.createDatabaseObject(path: name, configuration: configuration)
 
                     // Migrate database
                     if  let newVersion = version {
@@ -264,9 +263,8 @@ public class DatabaseHelper
                     dbQueue = nil
                 }
             }
-            // Check database connection
-            else if !dbQueue.isReadable {
-                dbQueue = nil
+            else {
+                dbQueue = createDatabaseObject(path: name, configuration: configuration)
             }
         }
 
@@ -293,8 +291,8 @@ public class DatabaseHelper
                 if let tmpPath = unpackDatabaseTemplate(databaseName: databaseName!, assetPath: path!), tmpPath.roxie_fileExists
                 {
                     let path = tmpPath.path
-                    
-                    var dbQueueUnpacked: DatabaseQueue? = createDatabaseObject(path: path, readonly: false)
+
+                    var dbQueueUnpacked: DatabaseQueue? = createDatabaseObject(path: path, configuration: Configuration())
                     
                     if checkDatabaseIntegrity(dbQueue: dbQueueUnpacked)
                     {
@@ -376,20 +374,17 @@ public class DatabaseHelper
 
     // DEPRECATED: Code refactoring is needed
     @available(*, deprecated, message: "\n• Code refactoring is required.\n• Write a description.")
-    private func createDatabaseObject(path: String?, readonly: Bool) -> DatabaseQueue?
+    private func createDatabaseObject(path: String?, configuration: Configuration) -> DatabaseQueue
     {
         guard let path = path else {
             Roxie.fatalError("Can't create database object with nil uri path")
         }
 
         do {
-            var configuration = Configuration()
-            configuration.readonly = readonly
-
             return try DatabaseQueue(path: path, configuration: configuration)
         }
         catch {
-            Roxie.fatalError("Can't open db at \(path) with readonly \(readonly)", cause: error)
+            Roxie.fatalError("Can't open db at \(path) with readonly \(configuration.readonly)", cause: error)
         }
     }
 

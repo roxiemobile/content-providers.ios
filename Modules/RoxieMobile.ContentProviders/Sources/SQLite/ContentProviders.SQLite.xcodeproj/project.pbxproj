@@ -10,7 +10,6 @@
 		190BCE961FCCBB8600C00B54 /* ContentProvidersSQLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 190BCE951FCCBB8600C00B54 /* ContentProvidersSQLite.m */; };
 		190BCEA31FCCBB9800C00B54 /* NSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193F9A631F9F46B500094163 /* NSError.swift */; };
 		190BCEA41FCCBB9800C00B54 /* Roxie.DatabasesDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193F9A611F9F46B500094163 /* Roxie.DatabasesDirectory.swift */; };
-		190BCEA51FCCBB9800C00B54 /* DatabaseQueue.IsReadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19164CAC1F867E7B00E0BB6D /* DatabaseQueue.IsReadable.swift */; };
 		190BCEA61FCCBB9800C00B54 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19164CAB1F867E7B00E0BB6D /* DatabaseHelper.swift */; };
 		190BCEA71FCCBB9800C00B54 /* DatabaseHelperZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19164CAA1F867E7B00E0BB6D /* DatabaseHelperZip.swift */; };
 		190BCEA81FCCBB9800C00B54 /* DatabaseOpenDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19164CAD1F867E7B00E0BB6D /* DatabaseOpenDelegate.swift */; };
@@ -26,7 +25,6 @@
 		190BCEAC1FCCBBFD00C00B54 /* SwiftCommonsExtensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftCommonsExtensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		19164CAA1F867E7B00E0BB6D /* DatabaseHelperZip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelperZip.swift; sourceTree = "<group>"; };
 		19164CAB1F867E7B00E0BB6D /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
-		19164CAC1F867E7B00E0BB6D /* DatabaseQueue.IsReadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseQueue.IsReadable.swift; sourceTree = "<group>"; };
 		19164CAD1F867E7B00E0BB6D /* DatabaseOpenDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseOpenDelegate.swift; sourceTree = "<group>"; };
 		191D20E01FCCBA8C0018A71B /* ContentProvidersSQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ContentProvidersSQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		191D20E21FCCBA8C0018A71B /* ContentProvidersSQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContentProvidersSQLite.h; sourceTree = "<group>"; };
@@ -53,14 +51,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		193050D725583D2B00FF2C12 /* GRDB */ = {
-			isa = PBXGroup;
-			children = (
-				19164CAC1F867E7B00E0BB6D /* DatabaseQueue.IsReadable.swift */,
-			);
-			path = GRDB;
-			sourceTree = "<group>";
-		};
 		193F9A601F9F46B500094163 /* Roxie */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,7 +80,6 @@
 			isa = PBXGroup;
 			children = (
 				193F9A621F9F46B500094163 /* Foundation */,
-				193050D725583D2B00FF2C12 /* GRDB */,
 				193F9A601F9F46B500094163 /* Roxie */,
 			);
 			path = Extensions;
@@ -284,7 +273,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				190BCEA51FCCBB9800C00B54 /* DatabaseQueue.IsReadable.swift in Sources */,
 				190BCE961FCCBB8600C00B54 /* ContentProvidersSQLite.m in Sources */,
 				190BCEA31FCCBB9800C00B54 /* NSError.swift in Sources */,
 				190BCEA41FCCBB9800C00B54 /* Roxie.DatabasesDirectory.swift in Sources */,
