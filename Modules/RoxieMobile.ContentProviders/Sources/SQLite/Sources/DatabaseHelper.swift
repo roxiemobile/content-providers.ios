@@ -178,8 +178,8 @@ public class DatabaseHelper
 
         // Open on-disk OR in-memory database
         if name.isNotBlank {
-            var configuration = Configuration()
 
+            var configuration = Configuration()
             configuration.readonly = readonly
 
             // Send events to the delegate
@@ -293,7 +293,6 @@ public class DatabaseHelper
                     let path = tmpPath.path
 
                     var configuration = Configuration()
-
                     configuration.readonly = false
 
                     var dbQueueUnpacked: DatabaseQueue? = createDatabaseObject(path: path, configuration: configuration)
