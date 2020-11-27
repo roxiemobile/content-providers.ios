@@ -292,9 +292,7 @@ public class DatabaseHelper
                 {
                     let path = tmpPath.path
 
-                    let configuration = Configuration()
-
-                    var dbQueueUnpacked: DatabaseQueue? = createDatabaseObject(path: path, configuration: configuration)
+                    var dbQueueUnpacked: DatabaseQueue? = createDatabaseObject(path: path, configuration: Configuration())
                     
                     if checkDatabaseIntegrity(dbQueue: dbQueueUnpacked)
                     {
