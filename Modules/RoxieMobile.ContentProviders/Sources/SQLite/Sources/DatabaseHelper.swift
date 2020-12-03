@@ -187,7 +187,7 @@ public class DatabaseHelper
             {
                 objcTry {
                     // Configure the database before open
-                    delegate.configureDatabase(name: databaseName, сonfiguration: &configuration)
+                    delegate.configureDatabase(name: databaseName, configuration: &configuration)
 
                     dbQueue = self.createDatabaseObject(path: name, configuration: configuration)
 
