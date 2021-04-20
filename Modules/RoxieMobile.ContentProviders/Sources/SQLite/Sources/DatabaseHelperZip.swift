@@ -11,7 +11,8 @@
 import Foundation
 import SwiftCommonsExtensions
 import SwiftCommonsLang
-import SwiftCommonsObjC
+import SwiftCommonsLogging
+import ZIPFoundation
 
 // ----------------------------------------------------------------------------
 
@@ -38,8 +39,17 @@ public class DatabaseHelperZip: DatabaseHelper
             FileManager.roxie_removeItem(at: tmpPath)
 
             // Unzip database template file from the assets
-            if SSZipArchive.unzipEntityName(databaseName, fromFilePath: assetPath.path, toDestination: tmpPath.path) {
-                path = tmpPath
+            if let archive = Archive(url: assetPath, accessMode: .read),
+               let entry = archive[databaseName] {
+
+                do {
+                    _ = try archive.extract(entry, to: tmpPath, skipCRC32: true)
+                    path = tmpPath
+                }
+                catch {
+                    let message = "Failed to extract ‘\(databaseName)’ from archive ‘\(assetPath.path)’."
+                    Logger.w(Roxie.typeName(of: self), message, error)
+                }
             }
         }
         else {

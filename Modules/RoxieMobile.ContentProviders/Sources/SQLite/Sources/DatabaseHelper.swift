@@ -49,8 +49,8 @@ public class DatabaseHelper
     @available(*, deprecated, message: "\n• Write a description.")
     public var userVersion: Int {
         get {
-            let version = self.databaseQueue?.read({ db -> Int? in
-                try? Int.fetchOne(db, sql: "PRAGMA user_version;")
+            let version = try? self.databaseQueue?.read({ db -> Int? in
+                try Int.fetchOne(db, sql: "PRAGMA user_version;")
             })
             return version ?? 0
         }
@@ -342,8 +342,8 @@ public class DatabaseHelper
     @available(*, deprecated, message: "\n• Write a description.")
     private func checkDatabaseIntegrity(dbQueue: DatabaseQueue?) -> Bool
     {
-        let result = dbQueue?.read({ db -> String? in
-            try? String.fetchOne(db, sql: "PRAGMA quick_check;")
+        let result = try? dbQueue?.read({ db -> String? in
+            try String.fetchOne(db, sql: "PRAGMA quick_check;")
         })
 
         return result?.lowercased() == "ok"
