@@ -6,21 +6,17 @@ import PackageDescription
 // @link https://docs.swift.org/package-manager/PackageDescription/PackageDescription.html
 
 let package = Package(
-    name: "ContentProviders",
+    name: "ContentProviders.SQLite",
     platforms: [
         .iOS(.v12),
     ],
     products: [
         .library(
-            name: "ContentProviders",
-            type: .static,
-            targets: ["ContentProviders"]
-        ),
-
-        .library(
             name: "ContentProvidersSQLite",
             type: .static,
-            targets: ["ContentProvidersSQLite"]
+            targets: [
+                "ContentProvidersSQLite",
+            ]
         ),
     ],
     dependencies: [
@@ -45,13 +41,6 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "ContentProviders",
-            dependencies: [
-                .target(name: "ContentProvidersSQLite"),
-            ]
-        ),
-
-        .target(
             name: "ContentProvidersSQLite",
             dependencies: [
                 .byName(name: "CryptoSwift"),
@@ -59,7 +48,7 @@ let package = Package(
                 .byName(name: "ZIPFoundation"),
                 .product(name: "SwiftCommonsExtensions", package: "SwiftCommons"),
             ],
-            path: "Modules/RoxieMobile.ContentProviders/Sources/SQLite/Sources"
+            path: "Sources"
         ),
     ],
     swiftLanguageVersions: [.v5]

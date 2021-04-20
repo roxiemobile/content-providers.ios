@@ -4,7 +4,7 @@
 //
 //  @author     Alexander Bragin <bragin-av@roxiemobile.com>
 //  @copyright  Copyright (c) 2016, Roxie Mobile Ltd. All rights reserved.
-//  @link       http://www.roxiemobile.com/
+//  @link       https://www.roxiemobile.com/
 //
 // ----------------------------------------------------------------------------
 
@@ -17,12 +17,18 @@ import ZIPFoundation
 // ----------------------------------------------------------------------------
 
 @available(*, deprecated)
-public class DatabaseHelperZip: DatabaseHelper
-{
+public class DatabaseHelperZip: DatabaseHelper {
+
 // MARK: - Construction
 
     @available(*, deprecated, message: "\n• Write a description.")
-    public override init(databaseName: String?, version: Int, readonly: Bool = false, delegate: DatabaseOpenDelegate? = nil) {
+    public override init(
+        databaseName: String?,
+        version: Int,
+        readonly: Bool = false,
+        delegate: DatabaseOpenDelegate? = nil
+    ) {
+
         super.init(databaseName: databaseName, version: version, readonly: readonly, delegate: delegate)
     }
 
@@ -33,8 +39,8 @@ public class DatabaseHelperZip: DatabaseHelper
         var path: URL?
 
         // Copy template file from application assets to the temporary directory
-        if let tmpPath = makeTemplatePath(databaseName: databaseName)
-        {
+        if let tmpPath = makeTemplatePath(databaseName: databaseName) {
+
             // Remove previous template file
             FileManager.roxie_removeItem(at: tmpPath)
 
@@ -59,5 +65,3 @@ public class DatabaseHelperZip: DatabaseHelper
         return path
     }
 }
-
-// ----------------------------------------------------------------------------
