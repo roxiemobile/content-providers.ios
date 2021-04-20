@@ -4,24 +4,31 @@
 //
 //  @author     Alexander Bragin <bragin-av@roxiemobile.com>
 //  @copyright  Copyright (c) 2016, Roxie Mobile Ltd. All rights reserved.
-//  @link       http://www.roxiemobile.com/
+//  @link       https://www.roxiemobile.com/
 //
 // ----------------------------------------------------------------------------
 
 import Foundation
 import SwiftCommonsExtensions
 import SwiftCommonsLang
-import SwiftCommonsObjC
+import SwiftCommonsLogging
+import ZIPFoundation
 
 // ----------------------------------------------------------------------------
 
 @available(*, deprecated)
-public class DatabaseHelperZip: DatabaseHelper
-{
+public class DatabaseHelperZip: DatabaseHelper {
+
 // MARK: - Construction
 
     @available(*, deprecated, message: "\n• Write a description.")
-    public override init(databaseName: String?, version: Int, readonly: Bool = false, delegate: DatabaseOpenDelegate? = nil) {
+    public override init(
+        databaseName: String?,
+        version: Int,
+        readonly: Bool = false,
+        delegate: DatabaseOpenDelegate? = nil
+    ) {
+
         super.init(databaseName: databaseName, version: version, readonly: readonly, delegate: delegate)
     }
 
@@ -32,14 +39,23 @@ public class DatabaseHelperZip: DatabaseHelper
         var path: URL?
 
         // Copy template file from application assets to the temporary directory
-        if let tmpPath = makeTemplatePath(databaseName: databaseName)
-        {
+        if let tmpPath = makeTemplatePath(databaseName: databaseName) {
+
             // Remove previous template file
             FileManager.roxie_removeItem(at: tmpPath)
 
             // Unzip database template file from the assets
-            if SSZipArchive.unzipEntityName(databaseName, fromFilePath: assetPath.path, toDestination: tmpPath.path) {
-                path = tmpPath
+            if let archive = Archive(url: assetPath, accessMode: .read),
+               let entry = archive[databaseName] {
+
+                do {
+                    _ = try archive.extract(entry, to: tmpPath, skipCRC32: true)
+                    path = tmpPath
+                }
+                catch {
+                    let message = "Failed to extract ‘\(databaseName)’ from archive ‘\(assetPath.path)’."
+                    Logger.w(Roxie.typeName(of: self), message, error)
+                }
             }
         }
         else {
@@ -49,5 +65,3 @@ public class DatabaseHelperZip: DatabaseHelper
         return path
     }
 }
-
-// ----------------------------------------------------------------------------

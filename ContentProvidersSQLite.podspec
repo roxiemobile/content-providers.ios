@@ -8,10 +8,10 @@ Pod::Spec.new do |s|
   s.version               = '1.5.1'
 
   s.platform              = :ios
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '12.0'
   s.swift_version         = '5.3'
 
-  s.cocoapods_version     = '~> 1.10.0'
+  s.cocoapods_version     = '~> 1.10.1'
   s.static_framework      = true
 
   s.homepage              = 'https://github.com/roxiemobile/content-providers.ios'
@@ -39,8 +39,9 @@ Pod::Spec.new do |s|
 
 # MARK: - Dependencies
 
-  s.dependency 'CryptoSwift', '~> 1.3.2'
-  s.dependency 'GRDB.swift/SQLCipher', '~> 4.14.0'
-  s.dependency 'SwiftCommons/Concurrent', '~> 1.5.0'
-  s.dependency 'SwiftCommons/Extensions', '~> 1.5.0'
+  s.dependency 'CryptoSwift', '~> 1.3.8'
+  s.dependency 'GRDB.swift/SQLCipher', '~> 5.7.4'
+  s.dependency 'SwiftCommons/Concurrent', '~> 1.6.0'
+  s.dependency 'SwiftCommons/Extensions', '~> 1.6.0'
+  s.dependency 'ZIPFoundation', '~> 0.9.12'
 end

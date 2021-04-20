@@ -1,88 +1,63 @@
 PODS:
-  - CryptoSwift-SCF53 (1.3.2):
-    - CryptoSwift-SCF53/StaticCocoaFramework (= 1.3.2)
-  - CryptoSwift-SCF53/StaticCocoaFramework (1.3.2)
-  - Dispatch-SCF53 (2.0.4):
-    - Dispatch-SCF53/StaticCocoaFramework (= 2.0.4)
-  - Dispatch-SCF53/StaticCocoaFramework (2.0.4)
-  - GRDB.swift-SCF53/SQLCipher (4.14.0):
-    - GRDB.swift-SCF53/StaticCocoaFramework (= 4.14.0)
-  - GRDB.swift-SCF53/StaticCocoaFramework (4.14.0):
-    - SQLCipher-SCF53 (>= 3.4.0)
-  - SQLCipher-SCF53 (4.4.0):
-    - SQLCipher-SCF53/standard (= 4.4.0)
-  - SQLCipher-SCF53/common (4.4.0):
-    - SQLCipher-SCF53/StaticCocoaFramework (= 4.4.0)
-  - SQLCipher-SCF53/standard (4.4.0):
-    - SQLCipher-SCF53/common
-  - SQLCipher-SCF53/StaticCocoaFramework (4.4.0)
-  - SwiftCommons-SCF53/Concurrent (1.5.0):
-    - SwiftCommonsConcurrent-SCF53 (= 1.5.0)
-  - SwiftCommons-SCF53/Extensions (1.5.0):
-    - SwiftCommonsExtensions-SCF53 (= 1.5.0)
-  - SwiftCommonsAbstractions-SCF53 (1.5.0):
-    - SwiftCommonsAbstractions-SCF53/StaticCocoaFramework (= 1.5.0)
-  - SwiftCommonsAbstractions-SCF53/StaticCocoaFramework (1.5.0)
-  - SwiftCommonsConcurrent-SCF53 (1.5.0):
-    - SwiftCommonsConcurrent-SCF53/StaticCocoaFramework (= 1.5.0)
-  - SwiftCommonsConcurrent-SCF53/StaticCocoaFramework (1.5.0):
-    - Dispatch-SCF53 (~> 2.0.4)
-    - SwiftCommonsObjC-SCF53 (= 1.5.0)
-  - SwiftCommonsExtensions-SCF53 (1.5.0):
-    - SwiftCommonsExtensions-SCF53/StaticCocoaFramework (= 1.5.0)
-  - SwiftCommonsExtensions-SCF53/StaticCocoaFramework (1.5.0):
-    - SwiftCommonsAbstractions-SCF53 (= 1.5.0)
-    - SwiftCommonsLogging-SCF53 (= 1.5.0)
-  - SwiftCommonsLang-SCF53 (1.5.0):
-    - SwiftCommonsLang-SCF53/StaticCocoaFramework (= 1.5.0)
-  - SwiftCommonsLang-SCF53/StaticCocoaFramework (1.5.0)
-  - SwiftCommonsLogging-SCF53 (1.5.0):
-    - SwiftCommonsLogging-SCF53/StaticCocoaFramework (= 1.5.0)
-  - SwiftCommonsLogging-SCF53/StaticCocoaFramework (1.5.0):
-    - SwiftCommonsConcurrent-SCF53 (= 1.5.0)
-    - SwiftCommonsLang-SCF53 (= 1.5.0)
-  - SwiftCommonsObjC-SCF53 (1.5.0):
-    - SwiftCommonsObjC-SCF53/StaticCocoaFramework (= 1.5.0)
-  - SwiftCommonsObjC-SCF53/StaticCocoaFramework (1.5.0)
-  - SwiftLint (0.40.3)
+  - CryptoSwift (1.3.8)
+  - GRDB.swift/SQLCipher (5.7.4):
+    - SQLCipher (>= 3.4.0)
+  - SQLCipher (4.4.3):
+    - SQLCipher/standard (= 4.4.3)
+  - SQLCipher/common (4.4.3)
+  - SQLCipher/standard (4.4.3):
+    - SQLCipher/common
+  - SwiftCommons/Concurrent (1.6.0):
+    - SwiftCommonsConcurrent (= 1.6.0)
+  - SwiftCommons/Extensions (1.6.0):
+    - SwiftCommonsExtensions (= 1.6.0)
+  - SwiftCommonsAbstractions (1.6.0)
+  - SwiftCommonsConcurrent (1.6.0):
+    - SwiftCommonsObjC (= 1.6.0)
+  - SwiftCommonsExtensions (1.6.0):
+    - SwiftCommonsAbstractions (= 1.6.0)
+    - SwiftCommonsLogging (= 1.6.0)
+  - SwiftCommonsLang (1.6.0)
+  - SwiftCommonsLogging (1.6.0):
+    - SwiftCommonsConcurrent (= 1.6.0)
+    - SwiftCommonsLang (= 1.6.0)
+  - SwiftCommonsObjC (1.6.0)
+  - ZIPFoundation (0.9.12)
 
 DEPENDENCIES:
-  - CryptoSwift-SCF53 (~> 1.3.2)
-  - GRDB.swift-SCF53/SQLCipher (~> 4.14.0)
-  - SwiftCommons-SCF53/Concurrent (~> 1.5.0)
-  - SwiftCommons-SCF53/Extensions (~> 1.5.0)
-  - SwiftLint (~> 0.40.3)
+  - CryptoSwift (~> 1.3.8)
+  - GRDB.swift/SQLCipher (~> 5.7.4)
+  - SwiftCommons/Concurrent (~> 1.6.0)
+  - SwiftCommons/Extensions (~> 1.6.0)
+  - ZIPFoundation (~> 0.9.12)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - SwiftLint
-  https://github.com/roxiemobile/static-cocoa-frameworks.ios.git:
-    - CryptoSwift-SCF53
-    - Dispatch-SCF53
-    - GRDB.swift-SCF53
-    - SQLCipher-SCF53
-    - SwiftCommons-SCF53
-    - SwiftCommonsAbstractions-SCF53
-    - SwiftCommonsConcurrent-SCF53
-    - SwiftCommonsExtensions-SCF53
-    - SwiftCommonsLang-SCF53
-    - SwiftCommonsLogging-SCF53
-    - SwiftCommonsObjC-SCF53
+    - CryptoSwift
+    - GRDB.swift
+    - SQLCipher
+    - SwiftCommons
+    - SwiftCommonsAbstractions
+    - SwiftCommonsConcurrent
+    - SwiftCommonsExtensions
+    - SwiftCommonsLang
+    - SwiftCommonsLogging
+    - SwiftCommonsObjC
+    - ZIPFoundation
 
 SPEC CHECKSUMS:
-  CryptoSwift-SCF53: 381130a78a83b60dbcfa2cb576993eec051bcd12
-  Dispatch-SCF53: 40f13b882a78c8e567d3e581221f086537a5c172
-  GRDB.swift-SCF53: 8ae4942d8b53393524d1a42d85f41075e8ddcf5d
-  SQLCipher-SCF53: 1c0932a1e71f3fb724ebe46b19fb19d933eba472
-  SwiftCommons-SCF53: eab0998892d05432be930696797e9c12f354770d
-  SwiftCommonsAbstractions-SCF53: 94857ff1b6927b7c9fc4c23ed8e77c4db3a161cd
-  SwiftCommonsConcurrent-SCF53: c61cd16572c75d868821c50bdd40c68cfc17be37
-  SwiftCommonsExtensions-SCF53: 3454469a90184acc79ed4f0c23d6f76e3cf41a79
-  SwiftCommonsLang-SCF53: 7fd8094d317c5377c19da2f1e4e678c67b2b06d0
-  SwiftCommonsLogging-SCF53: 44cf3d0ed29aeaac6f694a72bbdaf7739178f53d
-  SwiftCommonsObjC-SCF53: 25fa8250442ca373913d95f351cf59fe10761cd8
-  SwiftLint: dfd554ff0dff17288ee574814ccdd5cea85d76f7
+  CryptoSwift: 01b0f0cba1d5c212e5a335ff6c054fb75a204f00
+  GRDB.swift: 2064e726141f130d0b8bd819b29086f2b1157597
+  SQLCipher: 155ffeafc9ac102e5c9b68e3e9a1297a98a27096
+  SwiftCommons: b810184bc649e53a3699f8fd32b843f1664e4a00
+  SwiftCommonsAbstractions: 63106a7d2a426b7991180277ebeb1bb5398a6f05
+  SwiftCommonsConcurrent: 90dea79cdbd5fa0ced34509fd9aa3f081f51ee2c
+  SwiftCommonsExtensions: d22e1154d3bc7339144b5635c3974775dabb7b02
+  SwiftCommonsLang: 576e1474633fb48cde34db9eb5863b52e0f4b693
+  SwiftCommonsLogging: dc27e3f5d97cc1f4b59d2032d3df43dfd0b01ba0
+  SwiftCommonsObjC: 1fec999d67a71677b49db8c9dd010b2be55beef0
+  ZIPFoundation: e27423c004a5a1410c15933407747374e7c6cb6e
 
-PODFILE CHECKSUM: 32584dbfc5a1bff7cc5d9a232dfe09b02a6ff573
+PODFILE CHECKSUM: 2ee35c6be1802c1445210d113dd0324edc999f35
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

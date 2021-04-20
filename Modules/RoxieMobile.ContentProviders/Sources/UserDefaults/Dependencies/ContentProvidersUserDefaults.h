@@ -19,10 +19,3 @@ FOUNDATION_EXPORT double ContentProvidersUserDefaultsVersionNumber;
 FOUNDATION_EXPORT const unsigned char ContentProvidersUserDefaultsVersionString[];
 
 // ----------------------------------------------------------------------------
-// In this header, you should import all the public headers of your framework
-// using statements like #import <FrameworkName/PublicHeader.h>
-// ----------------------------------------------------------------------------
-
-// Do nothing
-
-// ----------------------------------------------------------------------------

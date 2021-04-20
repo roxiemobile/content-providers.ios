@@ -4,7 +4,7 @@
 //
 //  @author     Alexander Bragin <bragin-av@roxiemobile.com>
 //  @copyright  Copyright (c) 2016, Roxie Mobile Ltd. All rights reserved.
-//  @link       http://www.roxiemobile.com/
+//  @link       https://www.roxiemobile.com/
 //
 // ----------------------------------------------------------------------------
 
@@ -14,8 +14,8 @@ import GRDB
 // ----------------------------------------------------------------------------
 
 @available(*, deprecated, message: "\n• Write a description.")
-public protocol DatabaseOpenDelegate
-{
+public protocol DatabaseOpenDelegate: AnyObject {
+
 // MARK: - Methods
 
     /**
@@ -81,5 +81,3 @@ public protocol DatabaseOpenDelegate
      */
     func databaseDidOpenWithError(name: String?, error: NSError)
 }
-
-// ----------------------------------------------------------------------------

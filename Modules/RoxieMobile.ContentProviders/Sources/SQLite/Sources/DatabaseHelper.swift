@@ -4,8 +4,10 @@
 //
 //  @author     Alexander Bragin <bragin-av@roxiemobile.com>
 //  @copyright  Copyright (c) 2016, Roxie Mobile Ltd. All rights reserved.
-//  @link       http://www.roxiemobile.com/
+//  @link       https://www.roxiemobile.com/
 //
+// ----------------------------------------------------------------------------
+// swiftlint:disable file_length type_body_length
 // ----------------------------------------------------------------------------
 
 import CryptoSwift
@@ -19,17 +21,21 @@ import SwiftCommonsLogging
 
 // A helper class to manage database creation and version management.
 // @link https://github.com/android/platform_frameworks_base/blob/master/core/java/android/database/sqlite/SQLiteOpenHelper.java
+// swiftlint:disable:previous line_length
 
 @available(*, deprecated, message: "\n• Write a description.")
-public class DatabaseHelper
-{
+public class DatabaseHelper {
+
 // MARK: - Construction
 
     @available(*, deprecated, message: "\n• Write a description.")
-    public init(databaseName: String?, version: Int, readonly: Bool = false, delegate: DatabaseOpenDelegate? = nil)
-    {
-        // Init instance variables
-        self.databaseQueue = openOrCreateDatabase(databaseName: databaseName, version: version, readonly: readonly, delegate: delegate)
+    public init(databaseName: String?, version: Int, readonly: Bool = false, delegate: DatabaseOpenDelegate? = nil) {
+        self.databaseQueue = openOrCreateDatabase(
+            databaseName: databaseName,
+            version: version,
+            readonly: readonly,
+            delegate: delegate
+        )
     }
 
     private init() {
@@ -37,7 +43,6 @@ public class DatabaseHelper
     }
 
     deinit {
-        // Release resources
         self.databaseQueue = nil
     }
 
@@ -49,8 +54,8 @@ public class DatabaseHelper
     @available(*, deprecated, message: "\n• Write a description.")
     public var userVersion: Int {
         get {
-            let version = self.databaseQueue?.read({ db -> Int? in
-                try? Int.fetchOne(db, sql: "PRAGMA user_version;")
+            let version = try? self.databaseQueue?.read({ db -> Int? in
+                try Int.fetchOne(db, sql: "PRAGMA user_version;")
             })
             return version ?? 0
         }
@@ -76,13 +81,12 @@ public class DatabaseHelper
 // MARK: - Internal Methods
 
     @available(*, deprecated, message: "\n• Write a description.")
-    internal func unpackDatabaseTemplate(databaseName: String, assetPath: URL) -> URL?
-    {
+    internal func unpackDatabaseTemplate(databaseName: String, assetPath: URL) -> URL? {
         var path: URL?
 
         // Copy template file from application assets to the temporary directory
-        if let tmpPath = makeTemplatePath(databaseName: databaseName)
-        {
+        if let tmpPath = makeTemplatePath(databaseName: databaseName) {
+
             // Remove previous template file
             FileManager.roxie_removeItem(at: tmpPath)
 
@@ -100,14 +104,15 @@ public class DatabaseHelper
     }
 
     @available(*, deprecated, message: "\n• Write a description.")
-    internal func makeDatabasePath(databaseName: String?) -> URL?
-    {
+    internal func makeDatabasePath(databaseName: String?) -> URL? {
+
         let name = sanitizeName(name: databaseName)
         var path: URL?
 
         // Build path to the database file
         if !name.isEmpty && (name != Inner.InMemoryDatabase) {
-            path = Roxie.databasesDirectory?.appendingPathComponent((name.md5() as NSString).appendingPathExtension(FileExtension.SQLite)!)
+            path = Roxie.databasesDirectory?
+                .appendingPathComponent((name.md5() as NSString).appendingPathExtension(FileExtension.SQLite)!)
         }
 
         // Done
@@ -115,14 +120,15 @@ public class DatabaseHelper
     }
 
     @available(*, deprecated, message: "\n• Write a description.")
-    internal func makeTemplatePath(databaseName: String?) -> URL?
-    {
+    internal func makeTemplatePath(databaseName: String?) -> URL? {
+
         let name = sanitizeName(name: databaseName)
         var path: URL?
 
         // Build path to the template file
         if !name.isEmpty && (name != Inner.InMemoryDatabase) {
-            path = Roxie.temporaryDirectory?.appendingPathComponent((name.md5() as NSString).appendingPathExtension(FileExtension.SQLite)!)
+            path = Roxie.temporaryDirectory?
+                .appendingPathComponent((name.md5() as NSString).appendingPathExtension(FileExtension.SQLite)!)
         }
 
         // Done
@@ -148,14 +154,29 @@ public class DatabaseHelper
     }
 
     @available(*, deprecated, message: "\n• Write a description.")
-    private func openOrCreateDatabase(databaseName: String?, version: Int, readonly: Bool, delegate: DatabaseOpenDelegate?) -> DatabaseQueue?
-    {
+    private func openOrCreateDatabase(
+        databaseName: String?,
+        version: Int,
+        readonly: Bool,
+        delegate: DatabaseOpenDelegate?
+    ) -> DatabaseQueue? {
+
         // Try to open existing database
-        var dbQueue = openDatabase(databaseName: databaseName, version: version, readonly: readonly, delegate: delegate)
+        var dbQueue = openDatabase(
+            databaseName: databaseName,
+            version: version,
+            readonly: readonly,
+            delegate: delegate
+        )
 
         // Create and open new database
         if (dbQueue == nil) {
-            dbQueue = createDatabase(databaseName: databaseName, version: version, readonly: readonly, delegate: delegate)
+            dbQueue = createDatabase(
+                databaseName: databaseName,
+                version: version,
+                readonly: readonly,
+                delegate: delegate
+            )
         }
 
         // Done
@@ -163,8 +184,14 @@ public class DatabaseHelper
     }
 
     @available(*, deprecated, message: "\n• Write a description.")
-    private func openDatabase(databaseName: String?, version: Int?, readonly: Bool, delegate: DatabaseOpenDelegate?) -> DatabaseQueue?
-    {
+    private func openDatabase(
+        // swiftlint:disable:previous function_body_length
+        databaseName: String?,
+        version: Int?,
+        readonly: Bool,
+        delegate: DatabaseOpenDelegate?
+    ) -> DatabaseQueue? {
+
         var name: String? = sanitizeName(name: databaseName)
         var dbQueue: DatabaseQueue!
 
@@ -183,8 +210,8 @@ public class DatabaseHelper
             configuration.readonly = readonly
 
             // Send events to the delegate
-            if let delegate = delegate
-            {
+            if let delegate = delegate {
+
                 objcTry {
                     // Configure the database before open
                     delegate.configureDatabase(name: databaseName, configuration: &configuration)
@@ -192,14 +219,19 @@ public class DatabaseHelper
                     dbQueue = self.createDatabaseObject(path: name, configuration: configuration)
 
                     // Migrate database
-                    if  let newVersion = version {
+                    if let newVersion = version {
                         let oldVersion = self.userVersion
 
                         // Init OR update database if needed
-                        if (oldVersion != newVersion)
-                        {
+                        if (oldVersion != newVersion) {
+
                             if dbQueue.configuration.readonly {
-                                NSException(name: NSExceptionName(rawValue: NSError.DatabaseError.Domain), reason: "Can't migrate read-only database from version \(oldVersion) to \(newVersion).", userInfo: nil).raise()
+
+                                let errorName = NSExceptionName(rawValue: NSError.DatabaseError.Domain)
+                                let errorMessage = "Can't migrate read-only database from version \(oldVersion) to \(newVersion)."
+                                // swiftlint:disable:previous line_length
+
+                                NSException(name: errorName, reason: errorMessage, userInfo: nil).raise()
                             }
 
                             var blockException: NSException?
@@ -207,39 +239,53 @@ public class DatabaseHelper
 
                                 var result: Database.TransactionCompletion!
                                 var exception: NSException?
-                                
+
                                 objcTry {
-                                    
                                     if (oldVersion == 0) {
-                                        delegate.databaseDidCreate(name: databaseName, dbQueue: dbQueue)
+
+                                        delegate.databaseDidCreate(
+                                            name: databaseName,
+                                            dbQueue: dbQueue
+                                        )
                                     }
-                                    else
-                                    {
-                                        if (oldVersion > newVersion) {
-                                            delegate.downgradeDatabase(name: databaseName, dbQueue: dbQueue, oldVersion: oldVersion, newVersion: newVersion)
-                                        }
-                                        else {
-                                            delegate.upgradeDatabase(name: databaseName, dbQueue: dbQueue, oldVersion: oldVersion, newVersion: newVersion)
-                                        }
+                                    else if (oldVersion > newVersion) {
+
+                                        delegate.downgradeDatabase(
+                                            name: databaseName,
+                                            dbQueue: dbQueue,
+                                            oldVersion: oldVersion,
+                                            newVersion: newVersion
+                                        )
                                     }
-                                    
+                                    else {
+
+                                        delegate.upgradeDatabase(
+                                            name: databaseName,
+                                            dbQueue: dbQueue,
+                                            oldVersion: oldVersion,
+                                            newVersion: newVersion
+                                        )
+                                    }
+
                                     // Update schema version
                                     self.userVersion = newVersion
-                                    
+
                                     // Commit transaction on success
                                     result = .commit
-                                    
-                                    }.objcCatch { ex in
-                                        // Rollback transaction on error
-                                        exception = ex
-                                        result = .rollback
+
+                                    // Done
+                                }.objcCatch { ex in
+
+                                    // Rollback transaction on error
+                                    exception = ex
+                                    result = .rollback
                                 }
-                                
+
                                 // NOTE: Bug fix for block variable
                                 blockException = exception
-                                
+
                                 if result == .rollback {
-                                    throw DatabaseError.FailedTransaction
+                                    throw DatabaseError.failedTransaction
                                 }
 
                                 return result
@@ -253,10 +299,11 @@ public class DatabaseHelper
                     // Database did open successfully
                     delegate.databaseDidOpen(name: databaseName, dbQueue: dbQueue)
 
+                    // Done
                 }.objcCatch { ex in
 
                     // Convert NSException to NSError
-                    let error = NSError(code: NSError.DatabaseError.Code.DatabaseIsInvalid, description: ex.reason)
+                    let error = NSError(code: NSError.DatabaseError.Code.databaseIsInvalid, description: ex.reason)
 
                     // Could not open OR migrate database
                     delegate.databaseDidOpenWithError(name: databaseName, error: error)
@@ -273,38 +320,51 @@ public class DatabaseHelper
     }
 
     @available(*, deprecated, message: "\n• Write a description.")
-    private func createDatabase(databaseName: String?, version: Int, readonly: Bool, delegate: DatabaseOpenDelegate?) -> DatabaseQueue?
-    {
+    private func createDatabase(
+        databaseName: String?,
+        version: Int,
+        readonly: Bool,
+        delegate: DatabaseOpenDelegate?
+    ) -> DatabaseQueue? {
+
         let name = sanitizeName(name: databaseName)
         var dbQueue: DatabaseQueue?
 
         // Create on-disk database
-        if let dstPath = makeDatabasePath(databaseName: databaseName)
-        {
+        if let dstPath = makeDatabasePath(databaseName: databaseName) {
+
             // Remove previous database file
             FileManager.roxie_removeItem(at: dstPath)
 
             // Get path of the database template file from delegate
-            if let (path, encryptionKey) = delegate?.databaseWillCreate(name: databaseName), (path != nil) && path!.roxie_fileExists
-            {
+            if let (path, encryptionKey) = delegate?.databaseWillCreate(name: databaseName),
+               (path != nil) && path!.roxie_fileExists {
+
                 // Unpack database template from the assets
-                if let tmpPath = unpackDatabaseTemplate(databaseName: databaseName!, assetPath: path!), tmpPath.roxie_fileExists
-                {
+                if let tmpPath = unpackDatabaseTemplate(databaseName: databaseName!, assetPath: path!),
+                   tmpPath.roxie_fileExists {
+
                     let path = tmpPath.path
 
-                    var dbQueueUnpacked: DatabaseQueue? = createDatabaseObject(path: path, configuration: Configuration())
-                    
-                    if checkDatabaseIntegrity(dbQueue: dbQueueUnpacked)
-                    {
-                        // Export/copy database template to the "Databases" folder
-                        if let key = encryptionKey, !key.isEmpty
-                        {
-                            // FMDB with SQLCipher Tutorial
-                            // @link http://www.guilmo.com/fmdb-with-sqlcipher-tutorial/
+                    var dbQueueUnpacked: DatabaseQueue? = createDatabaseObject(
+                        path: path,
+                        configuration: Configuration()
+                    )
 
-                            execute(dbQueue: dbQueueUnpacked, query: "ATTACH DATABASE '\(dstPath.path)' AS `encrypted` KEY '\(key.toHexString())';")
-                            execute(dbQueue: dbQueueUnpacked, query: "SELECT sqlcipher_export('encrypted');")
-                            execute(dbQueue: dbQueueUnpacked, query: "DETACH DATABASE `encrypted`;")
+                    if checkDatabaseIntegrity(dbQueue: dbQueueUnpacked) {
+
+                        // Export/copy database template to the "Databases" folder
+                        if let key = encryptionKey, !key.isEmpty {
+
+                            // FMDB with SQLCipher Tutorial
+                            // @link https://www.guilmo.com/fmdb-with-sqlcipher-tutorial/
+
+                            execute(dbQueue: dbQueueUnpacked,
+                                query: "ATTACH DATABASE '\(dstPath.path)' AS `encrypted` KEY '\(key.toHexString())';")
+                            execute(dbQueue: dbQueueUnpacked,
+                                query: "SELECT sqlcipher_export('encrypted');")
+                            execute(dbQueue: dbQueueUnpacked,
+                                query: "DETACH DATABASE `encrypted`;")
                         }
                         else {
                             FileManager.roxie_copyItem(at: tmpPath, to: dstPath)
@@ -323,7 +383,12 @@ public class DatabaseHelper
             }
 
             // Try to open created database
-            dbQueue = openDatabase(databaseName: databaseName, version: version, readonly: readonly, delegate: delegate)
+            dbQueue = openDatabase(
+                databaseName: databaseName,
+                version: version,
+                readonly: readonly,
+                delegate: delegate
+            )
 
             // Remove corrupted database file
             if (dbQueue == nil) {
@@ -332,7 +397,13 @@ public class DatabaseHelper
         }
         // Create in-memory database
         else if (name == Inner.InMemoryDatabase) {
-            dbQueue = openDatabase(databaseName: name, version: version, readonly: readonly, delegate: delegate)
+
+            dbQueue = openDatabase(
+                databaseName: name,
+                version: version,
+                readonly: readonly,
+                delegate: delegate
+            )
         }
 
         // Done
@@ -340,27 +411,32 @@ public class DatabaseHelper
     }
 
     @available(*, deprecated, message: "\n• Write a description.")
-    private func checkDatabaseIntegrity(dbQueue: DatabaseQueue?) -> Bool
-    {
-        let result = dbQueue?.read({ db -> String? in
-            try? String.fetchOne(db, sql: "PRAGMA quick_check;")
+    private func checkDatabaseIntegrity(dbQueue: DatabaseQueue?) -> Bool {
+
+        let result = try? dbQueue?.read({ db -> String? in
+            try String.fetchOne(db, sql: "PRAGMA quick_check;")
         })
 
         return result?.lowercased() == "ok"
     }
 
     @available(*, deprecated, message: "\n• Write a description.")
-    private func sanitizeName(name: String?) -> String
-    {
-        guard let name = name, name.isNotBlank else { return Inner.InMemoryDatabase }
+    private func sanitizeName(name: String?) -> String {
+
+        guard let name = name, name.isNotBlank else {
+            return Inner.InMemoryDatabase
+        }
+
         return name
     }
 
     // DEPRECATED: Code refactoring is needed
     @available(*, deprecated, message: "\n• Code refactoring is required.\n• Write a description.")
-    private func execute(dbQueue: DatabaseQueue?, query: String)
-    {
-        guard let dbQueue = dbQueue else { return }
+    private func execute(dbQueue: DatabaseQueue?, query: String) {
+
+        guard let dbQueue = dbQueue else {
+            return
+        }
 
         do {
             try dbQueue.write({ db in
@@ -374,8 +450,8 @@ public class DatabaseHelper
 
     // DEPRECATED: Code refactoring is needed
     @available(*, deprecated, message: "\n• Code refactoring is required.\n• Write a description.")
-    private func createDatabaseObject(path: String?, configuration: Configuration) -> DatabaseQueue
-    {
+    private func createDatabaseObject(path: String?, configuration: Configuration) -> DatabaseQueue {
+
         guard let path = path else {
             Roxie.fatalError("Can't create database object with nil uri path")
         }
@@ -390,8 +466,12 @@ public class DatabaseHelper
 
     // DEPRECATED: Code refactoring is needed
     @available(*, deprecated, message: "\n• Code refactoring is required.\n• Write a description.")
-    private func runTransaction(dbQueue: DatabaseQueue?, kind: Database.TransactionKind, block: @escaping (Database) throws -> Database.TransactionCompletion)
-    {
+    private func runTransaction(
+        dbQueue: DatabaseQueue?,
+        kind: Database.TransactionKind,
+        block: @escaping (Database) throws -> Database.TransactionCompletion
+    ) {
+
         guard let dbQueue = dbQueue else {
             Roxie.fatalError("Can't run transaction on nil database")
         }
@@ -416,13 +496,11 @@ public class DatabaseHelper
 
 // MARK: - Inner Types
 
-    enum DatabaseError : Error {
-        case FailedTransaction
+    enum DatabaseError: Error {
+        case failedTransaction
     }
 
 // MARK: - Variables
 
     private static let shared: DatabaseHelper = DatabaseHelper()
 }
-
-// ----------------------------------------------------------------------------

@@ -1,17 +1,19 @@
 // ----------------------------------------------------------------------------
 //
-//  ContentProvidersFileSystem.m
+//  ContentProviders.swift
 //
 //  @author     Alexander Bragin <bragin-av@roxiemobile.com>
-//  @copyright  Copyright (c) 2017, Roxie Mobile Ltd. All rights reserved.
-//  @link       http://www.roxiemobile.com/
+//  @copyright  Copyright (c) 2021, Roxie Mobile Ltd. All rights reserved.
+//  @link       https://www.roxiemobile.com/
 //
 // ----------------------------------------------------------------------------
 
-#import "ContentProvidersFileSystem.h"
+import ContentProvidersFileSystem
+import ContentProvidersSQLite
+import ContentProvidersUserDefaults
 
 // ----------------------------------------------------------------------------
 
-// TODO
-
-// ----------------------------------------------------------------------------
+private struct ContentProviders {
+    // Do nothing
+}
