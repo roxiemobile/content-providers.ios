@@ -18,6 +18,11 @@ let package = Package(
         ),
 
         .library(
+            name: "ContentProvidersFileSystem",
+            type: .static,
+            targets: ["ContentProvidersFileSystem"]
+        ),
+        .library(
             name: "ContentProvidersSQLite",
             type: .static,
             targets: ["ContentProvidersSQLite"]
@@ -47,10 +52,15 @@ let package = Package(
         .target(
             name: "ContentProviders",
             dependencies: [
+                .target(name: "ContentProvidersFileSystem"),
                 .target(name: "ContentProvidersSQLite"),
             ]
         ),
 
+        .target(
+            name: "ContentProvidersFileSystem",
+            path: "Modules/RoxieMobile.ContentProviders/Sources/FileSystem/Sources"
+        ),
         .target(
             name: "ContentProvidersSQLite",
             dependencies: [

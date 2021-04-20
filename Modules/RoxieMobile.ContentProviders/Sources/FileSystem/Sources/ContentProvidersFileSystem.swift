@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 //
-//  ContentProviders.swift
+//  ContentProvidersFileSystem.swift
 //
 //  @author     Alexander Bragin <bragin-av@roxiemobile.com>
 //  @copyright  Copyright (c) 2021, Roxie Mobile Ltd. All rights reserved.
@@ -8,11 +8,6 @@
 //
 // ----------------------------------------------------------------------------
 
-import ContentProvidersFileSystem
-import ContentProvidersSQLite
-
-// ----------------------------------------------------------------------------
-
-private struct ContentProviders {
+private struct ContentProvidersFileSystem {
     // Do nothing
 }
