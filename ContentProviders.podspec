@@ -8,10 +8,10 @@ Pod::Spec.new do |s|
   s.version               = '1.5.1'
 
   s.platform              = :ios
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '12.0'
   s.swift_version         = '5.3'
 
-  s.cocoapods_version     = '~> 1.10.0'
+  s.cocoapods_version     = '~> 1.10.1'
   s.static_framework      = true
 
   s.homepage              = 'https://github.com/roxiemobile/content-providers.ios'
@@ -27,18 +27,18 @@ Pod::Spec.new do |s|
 
 # MARK: - Modules
 
-  # # A content provider used for accessing and modifying physical files.
-  # s.subspec 'FileSystem' do |sc|
-  #   sc.dependency 'ContentProvidersFileSystem', s.version.to_s
-  # end
+  # A content provider used for accessing and modifying physical files.
+  s.subspec 'FileSystem' do |sc|
+    sc.dependency 'ContentProvidersFileSystem', s.version.to_s
+  end
 
   # A content provider used for accessing and modifying data in SQLite database.
   s.subspec 'SQLite' do |sc|
     sc.dependency 'ContentProvidersSQLite', s.version.to_s
   end
 
-  # # A content provider used for accessing and modifying data in UserDefaults.
-  # s.subspec 'UserDefaults' do |sc|
-  #   sc.dependency 'ContentProvidersUserDefaults', s.version.to_s
-  # end
+  # A content provider used for accessing and modifying data in UserDefaults.
+  s.subspec 'UserDefaults' do |sc|
+    sc.dependency 'ContentProvidersUserDefaults', s.version.to_s
+  end
 end
