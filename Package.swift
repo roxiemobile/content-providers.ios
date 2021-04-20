@@ -27,6 +27,11 @@ let package = Package(
             type: .static,
             targets: ["ContentProvidersSQLite"]
         ),
+        .library(
+            name: "ContentProvidersUserDefaults",
+            type: .static,
+            targets: ["ContentProvidersUserDefaults"]
+        ),
     ],
     dependencies: [
         .package(
@@ -54,6 +59,7 @@ let package = Package(
             dependencies: [
                 .target(name: "ContentProvidersFileSystem"),
                 .target(name: "ContentProvidersSQLite"),
+                .target(name: "ContentProvidersUserDefaults"),
             ]
         ),
 
@@ -70,6 +76,10 @@ let package = Package(
                 .product(name: "SwiftCommonsExtensions", package: "SwiftCommons"),
             ],
             path: "Modules/RoxieMobile.ContentProviders/Sources/SQLite/Sources"
+        ),
+        .target(
+            name: "ContentProvidersUserDefaults",
+            path: "Modules/RoxieMobile.ContentProviders/Sources/UserDefaults/Sources"
         ),
     ],
     swiftLanguageVersions: [.v5]
